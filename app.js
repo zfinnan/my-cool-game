@@ -113,6 +113,11 @@ function playerRender() {
     }
     sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
     sprite.style.zIndex = '1';
+    
+    setTimeout(movePlayer, 0);
+}
+
+function movePlayer() {
 
     const keys = [];
 
@@ -123,13 +128,14 @@ function playerRender() {
     window.addEventListener('keyup', function(e) {
         delete keys[e.key];
     });
-    function movePlayer() {
-        if (keys[87]) {
-            sprite.cy -= 9;
+    
+    window.addEventListener('keyup', function(e) {
+        if (e.key === 'w') {
+            let computedStyle = getComputedStyle(canvasDisplay)
+            let ctx = canvasDisplay.getContext("2d");
+            ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
         }
-    }
-    movePlayer();
-
+    });
+    
 }
-
 
