@@ -7,21 +7,6 @@ const width = computedStyle.width
 canvasDisplay.height = height.replace('px','')
 canvasDisplay.width = width.replace('px','')
 
-const keys = [];
-
-const player = {
-    x: 0,
-    y: 0,
-    width: ???,
-    height: ???,
-    frameX: 0,
-    frameY: 0,
-    speed: 9,
-    moving: false 
-}
-
-const playerSprite = new Image();
-playerSprite.src = "...";
 
 function openInstructions() {
     let canvasDisplay = document.querySelector('#board')
@@ -67,7 +52,9 @@ function openInstructions() {
     ctx.fillStyle = 'black';  
     ctx.fillText('Use the 🆆 🅰 🆂 🅳 keys to collect all the fuel cells and escape!', 450, 300);
 
-    setInterval(myTimer, 10000);  
+    setTimeout(myTimer, 10000);  
+    // startButton.onclick = setTimeout(myTimer, 0);  
+    setTimeout(playerRender, 10000);
 }
 
 function startGame() {  
@@ -85,12 +72,15 @@ function startGame() {
     let instructionsButton = document.querySelector('#instructionsBtn')
     startButton.remove();
     instructionsButton.remove();
+
+    setTimeout(playerRender, 0); 
 }
 
 function myTimer() {
     let computedStyle = getComputedStyle(canvasDisplay)
     let ctx = canvasDisplay.getContext("2d");
     ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
+    startButton.remove();
   }
 
 function startScene() {
@@ -106,4 +96,40 @@ function gameMap() {
     canvasDisplay.style.backgroundRepeat = 'no-repeat';
     canvasDisplay.style.backgroundSize = '100% 100%';
 }
+
+function playerRender() {
+    var canvasDisplay = document.getElementById('board');
+    var context = canvasDisplay.getContext('2d');
+    var sprite = new Image();
+    var cx = 440;
+    var cy = 190;
+    var sx = 65;
+    var sy = 0;
+    var swidth = 50;
+    var sheight = 60;
+
+    sprite.onload = function() {
+        context.drawImage(sprite, sx, sy, swidth, sheight, cx, cy, 35, 48);
+    }
+    sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
+    sprite.style.zIndex = '1';
+
+    const keys = [];
+
+    window.addEventListener('keydown', function(e) {
+        keys[e.key] = true;
+        console.log(keys);
+    });
+    window.addEventListener('keyup', function(e) {
+        delete keys[e.key];
+    });
+    function movePlayer() {
+        if (keys[87]) {
+            sprite.cy -= 9;
+        }
+    }
+    movePlayer();
+
+}
+
 
