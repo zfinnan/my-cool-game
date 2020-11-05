@@ -1,0 +1,74 @@
+body {
+    background: url(https://planetarium.truman.edu/files/2017/10/Space-background.jpg);
+    background-repeat: no-repeat;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+}
+h1 {
+    color: #7DF9FF;
+    font-size: 65px;
+    text-shadow: 0 0 0.15em #1da9cc;
+    filter: blur(0.007em);
+    animation: shake 2.5s linear; 
+}
+
+p {
+    color: #7DF9FF;
+    font-size: 25px;
+    text-shadow: 0 0 0.15em #1da9cc;
+    filter: blur(0.007em); 
+}
+
+#board {
+    background: url(https://static.wikia.nocookie.net/final-space/images/3/3c/The_Galaxy_One.PNG/revision/latest?cb=20180227055051);
+    background-size: 100% 100%;
+    width: 70%;
+    height: 80;
+    border: 2px solid #1da9cc;
+    position: relative;
+    justify-content: center;
+  }
+
+          
+#startBtn {
+border: none;
+background: none;
+position: absolute;
+top: 50%;
+left: 50%;
+z-index: 1;
+transform: translate(-50%,-50%);
+-webkit-transform: translate(-50%,-50%);
+-moz-transform: translate(-50%,-50%);
+-ms-transform: translate(-50%,-50%);
+position: absolute;
+}
+
+#startBtn:hover{
+    cursor: pointer;
+}
+
+
+#instructionsBtn {
+border: none;
+background: none;
+position: absolute;
+top: 70%;
+left: 50%;
+z-index: 1;
+transform: translate(-50%,-50%);
+-webkit-transform: translate(-50%,-50%);
+-moz-transform: translate(-50%,-50%);
+-ms-transform: translate(-50%,-50%);
+position: absolute;
+}
+
+#instructionsBtn:hover {
+    cursor: pointer;
+}
+  
+#gameStart {
+    height: 80px;
+    width: 200px;
+    border-radius: 20%;
+}
