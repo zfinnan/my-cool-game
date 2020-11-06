@@ -4,6 +4,8 @@ body {
     font-family: 'Orbitron', sans-serif;
     text-align: center;
 }
+
+
 h1 {
     color: #7DF9FF;
     font-size: 65px;
@@ -71,4 +73,20 @@ position: absolute;
     height: 80px;
     width: 200px;
     border-radius: 20%;
+}
+.hud {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2rem 30%;
+}
+.progress{
+    height: 30px;
+    width: 200px;
+    background: lime;
+    border: 1px solid #F920AC;
+}
+
+label{
+    color: #1da9cc;
 }

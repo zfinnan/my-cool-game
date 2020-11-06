@@ -1,5 +1,8 @@
 // const movementDisplay = document.querySelector('#movement')
 const canvasDisplay = document.querySelector('#board')
+const [fuelBar, healthBar] = document.querySelectorAll('.progress');
+console.log(typeof fuelBar.value);
+console.log(healthBar);
 
 const computedStyle = getComputedStyle(canvasDisplay)
 const height = computedStyle.height
@@ -107,7 +110,22 @@ var swidth = 50;
 var sheight = 50;
 sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
 sprite.style.zIndex = '1';
-const totalMovement = [cx + cy + sx + sy];
+
+const player = {
+    sprite,
+    cx,
+    cy,
+    sx,
+    sy,
+    swidth,
+    sheight,
+}
+console.log(player.sprite);
+
+console.log(sprite);
+
+var asteroid = new Image();
+asteroid.src = 'https://i.imgur.com/WfQKE6T.png'
 
 function playerRender() {
     var canvasDisplay = document.getElementById('board');
@@ -136,14 +154,14 @@ function boardMovement() {
     sprite.style.zIndex = '1';
 }
 
-
 function movePlayer() {
+
     window.addEventListener('keyup', function(e) {
         if (e.key === 'w' && cy > 2) {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
-            cy -= 15;
+            cy -= 18;
             sx = 0;
             sy = 0;
             sheight = 60;
@@ -155,7 +173,7 @@ function movePlayer() {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
-            cx -= 15;
+            cx -= 18;
             sy = 325;
             sx = 130;
             boardMovement();   
@@ -167,11 +185,10 @@ function movePlayer() {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
-            cy += 15
+            cy += 18;
             sx = 130;
             sy = 455;
             sheight = 65;
-            // cy = [];
             boardMovement();  
         }
     });
@@ -180,7 +197,7 @@ function movePlayer() {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
-            cx += 15
+            cx += 18;
             sx = 0;
             sy = 130;
             swidth = 65;
@@ -190,15 +207,15 @@ function movePlayer() {
 }
 
     // allows you to hold buttons down for movement
-    // const keys = [];
 
+    // const keys = [];
     // window.addEventListener('keydown', function(e) {
     //     keys[e.key] = true;
     //     console.log(keys);
     // });
     // window.addEventListener('keyup', function(e) {
     //     delete keys[e.key];
-    // });dddd
+    // });
 
 // function detectHit() {
 //     // hit coming in from the right
