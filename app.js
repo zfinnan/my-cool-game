@@ -160,24 +160,27 @@ function movePlayer() {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
-            cx += 2
-            playerRender();
-        }
+            cy -= 2;
+            playerRender();       
+        } 
     });
     window.addEventListener('keyup', function(e) {
         if (e.key === 'a') {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
-
+            cx -= 2
+            playerRender();   
             
-        }
+        } 
     });
     window.addEventListener('keyup', function(e) {
         if (e.key === 's') {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
+            cy += 2
+            playerRender();  
         }
     });
     window.addEventListener('keyup', function(e) {
@@ -185,6 +188,8 @@ function movePlayer() {
             let computedStyle = getComputedStyle(canvasDisplay)
             let ctx = canvasDisplay.getContext("2d");
             ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
+            cx += 2
+            playerRender();   
         }
     });
     // window.addEventListener('keyup', function(e) {
