@@ -78,6 +78,7 @@ function startGame() {
 
     // setTimeout(playerRender, 0); 
     playerRender();
+    // asteroidRender();
 }
 
 function removeStartButton() {
@@ -118,14 +119,26 @@ const player = {
     sx,
     sy,
     swidth,
-    sheight,
+    sheight
 }
-console.log(player.sprite);
-
-console.log(sprite);
 
 var asteroid = new Image();
+var acx = 0;
+var acy = 0;
+var asx = 50;
+var asy = 50;
+var aswidth = 200;
+var asheight = 200;
 asteroid.src = 'https://i.imgur.com/WfQKE6T.png'
+
+const objectOne = {
+    acx,
+    acy,
+    asx,
+    asy,
+    aswidth,
+    asheight
+}
 
 function playerRender() {
     var canvasDisplay = document.getElementById('board');
@@ -136,11 +149,63 @@ function playerRender() {
     }
     sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
     sprite.style.zIndex = '1';
+
+    //  asteroid.onload = function() {
+    //     context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 50, 50);
+    // }
+    // asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
     
     // setTimeout(movePlayer, 0);
-    
-    
+
+    throwAsteroids();
     movePlayer();
+}
+
+// function moveAsteroid() {
+//     let canvasDisplay = document.getElementById('board');
+//     let ctx = canvasDisplay.getContext("2d");
+//     ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
+
+//     asteroid.onload = function() {
+//         context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 50, 50);
+//     }
+//     asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
+//     // sprite.style.zIndex = '1';
+// } 
+
+function throwAsteroids() {
+    var canvasDisplay = document.getElementById('board');
+    var context = canvasDisplay.getContext('2d');
+   
+    // sprite.onload = function() {
+    //     context.drawImage(sprite, sx, sy, swidth, sheight, cx, cy, 50, 50);
+    // }
+    // sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
+    // sprite.style.zIndex = '1';
+    var acx = Math.floor(Math.random() * 885); 
+    var acy = Math.floor(Math.random() * 25); 
+    console.log(acy);
+    setInterval( () => {
+    
+     asteroid.onload = function() {
+        context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 100, 100);
+        acx += 10;
+        acy += 10;
+        // setInterval( function () => {
+        //     ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height)
+        // }, 90)
+    }
+    asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
+    }, 100)
+
+    // asteroid.onload = function() {
+    //     context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 80, 80);
+    // }
+    // asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
+    // setInterval( () => {
+    //     acx += 10;
+    //     acy += 10;
+    // }, 150);
 }
 
 function boardMovement() {
@@ -152,6 +217,7 @@ function boardMovement() {
     }
     sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
     sprite.style.zIndex = '1';
+
 }
 
 function movePlayer() {
@@ -205,6 +271,8 @@ function movePlayer() {
         }
     });
 }
+
+
 
     // allows you to hold buttons down for movement
 
