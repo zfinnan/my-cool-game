@@ -3,6 +3,7 @@ body {
     background-repeat: no-repeat;
     font-family: 'Orbitron', sans-serif;
     text-align: center;
+    /* z-index: 1; */
 }
 
 
@@ -21,6 +22,16 @@ p {
     filter: blur(0.007em); 
 }
 
+.container {
+    position: relative;
+}
+
+.container > canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 #board {
     background: url(https://i.imgur.com/3iaaaMp.png);
     background-size: 100% 100%;
@@ -29,21 +40,36 @@ p {
     border: 2px solid #1da9cc;
     position: relative;
     justify-content: center;
+    z-index: 0;
   }
+#asteroidCanvas {
+    border: 5px solid hotpink;
+    width: 70%;
+    height: 80;
+    margin-left: 195px;
+    z-index: 1;
+}
 
+#fuelCanvas {
+    /* border: 5px solid purple; */
+    width: 70%;
+    height: 80;
+    margin-left: 195px;
+    z-index: 2;
+}
           
 #startBtn {
-border: none;
-background: none;
-position: absolute;
-top: 50%;
-left: 50%;
-z-index: 1;
-transform: translate(-50%,-50%);
--webkit-transform: translate(-50%,-50%);
--moz-transform: translate(-50%,-50%);
--ms-transform: translate(-50%,-50%);
-position: absolute;
+    border: none;
+    background: none;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    z-index: 3;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    position: absolute;
 }
 
 #startBtn:hover{
@@ -55,9 +81,9 @@ position: absolute;
 border: none;
 background: none;
 position: absolute;
-top: 70%;
+top: 60%;
 left: 50%;
-z-index: 1;
+z-index: 3;
 transform: translate(-50%,-50%);
 -webkit-transform: translate(-50%,-50%);
 -moz-transform: translate(-50%,-50%);
@@ -86,7 +112,6 @@ position: absolute;
     background: lime;
     border: 1px solid #F920AC;
 }
-
-label{
-    color: #1da9cc;
+label {
+    color: #1da9cc; 
 }

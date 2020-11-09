@@ -1,4 +1,3 @@
-// const movementDisplay = document.querySelector('#movement')
 const canvasDisplay = document.querySelector('#board')
 const [fuelBar, healthBar] = document.querySelectorAll('.progress');
 console.log(typeof fuelBar.value);
@@ -9,6 +8,18 @@ const height = computedStyle.height
 const width = computedStyle.width 
 canvasDisplay.height = height.replace('px','')
 canvasDisplay.width = width.replace('px','')
+
+var board2 = document.createElement('canvas');
+board2.width = width;
+board2.height = height;
+var board2Context = board2.getContext('2d');
+
+const fuelCanvas = document.querySelector('#fuelCanvas')
+const fuelComputedStyle = getComputedStyle(fuelCanvas)
+const fuelHeight = fuelComputedStyle.height
+const fuelWidth = fuelComputedStyle.width
+fuelCanvas.height = fuelHeight.replace('px','')
+fuelCanvas.width = fuelHeight.replace('px','')
 
 
 function openInstructions() {
@@ -58,6 +69,7 @@ function openInstructions() {
     setTimeout(removeStartButton, 10000);  
     // startButton.onclick = setTimeout(myTimer, 0);  
     setTimeout(playerRender, 10000);
+    
 }
 
 function startGame() {  
@@ -76,9 +88,21 @@ function startGame() {
     startButton.remove();
     instructionsButton.remove();
 
-    // setTimeout(playerRender, 0); 
     playerRender();
-    // asteroidRender();
+    // throwAsteroid1();
+    // setInterval(throwAsteroid1, 2000); 
+    
+    setTimeout(drawFuel1, 0);
+    setTimeout(drawFuel2, 5000);
+    setTimeout(drawFuel3, 10000);
+    setTimeout(drawFuel4, 15000);
+    setTimeout(drawFuel5, 20000);
+    setTimeout(drawFuel6, 25000);
+    setTimeout(drawFuel7, 30000);
+    setTimeout(drawFuel8, 35000);
+    setInterval(spawnAsteroid, 2000);
+    setInterval(updateCanvas, 50);
+    spawnAsteroid();
 }
 
 function removeStartButton() {
@@ -110,7 +134,7 @@ var sy = 0;
 var swidth = 50;
 var sheight = 50;
 sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
-sprite.style.zIndex = '1';
+// sprite.style.zIndex = '1';
 
 const player = {
     sprite,
@@ -140,6 +164,8 @@ const objectOne = {
     asheight
 }
 
+
+
 function playerRender() {
     var canvasDisplay = document.getElementById('board');
     var context = canvasDisplay.getContext('2d');
@@ -148,77 +174,211 @@ function playerRender() {
         context.drawImage(sprite, sx, sy, swidth, sheight, cx, cy, 50, 50);
     }
     sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
-    sprite.style.zIndex = '1';
+    // sprite.style.zIndex = '1';
 
-    //  asteroid.onload = function() {
-    //     context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 50, 50);
-    // }
-    // asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
-    
     // setTimeout(movePlayer, 0);
 
-    throwAsteroids();
     movePlayer();
-}
-
-// function moveAsteroid() {
-//     let canvasDisplay = document.getElementById('board');
-//     let ctx = canvasDisplay.getContext("2d");
-//     ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height);
-
-//     asteroid.onload = function() {
-//         context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 50, 50);
-//     }
-//     asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
-//     // sprite.style.zIndex = '1';
-// } 
-
-function throwAsteroids() {
-    var canvasDisplay = document.getElementById('board');
-    var context = canvasDisplay.getContext('2d');
-   
-    // sprite.onload = function() {
-    //     context.drawImage(sprite, sx, sy, swidth, sheight, cx, cy, 50, 50);
-    // }
-    // sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
-    // sprite.style.zIndex = '1';
-    var acx = Math.floor(Math.random() * 885); 
-    var acy = Math.floor(Math.random() * 25); 
-    console.log(acy);
-    setInterval( () => {
     
-     asteroid.onload = function() {
-        context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 100, 100);
-        acx += 10;
-        acy += 10;
-        // setInterval( function () => {
-        //     ctx.clearRect(0,0, canvasDisplay.width, canvasDisplay.height)
-        // }, 90)
-    }
-    asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
-    }, 100)
-
-    // asteroid.onload = function() {
-    //     context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 80, 80);
-    // }
-    // asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
-    // setInterval( () => {
-    //     acx += 10;
-    //     acy += 10;
-    // }, 150);
 }
 
-function boardMovement() {
-    var canvasDisplay = document.getElementById('board');
-    var context = canvasDisplay.getContext('2d');
-   
-    sprite.onload = function() {
-        context.drawImage(sprite, sx, sy, swidth, sheight, cx, cy, 50, 50);
+Asteroid = function() {
+    this.acx = Math.floor(Math.random() * 200);
+    this.acy = Math.floor(Math.random() * 10);
+  
+    this.image = new Image();
+    this.image.onload = function(e) {
+      this.loaded = true;
+      this.aswidth = 200;
+      this.asheight = 200;
     }
-    sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
-    sprite.style.zIndex = '1';
+    this.image.src = 'https://i.imgur.com/WfQKE6T.png';
+  }
+  
+var asteroidCanvas = document.getElementById('asteroidCanvas');
+var context = asteroidCanvas.getContext('2d');
+let asteroids = [];
 
+function spawnAsteroid() {
+asteroids.push(new Asteroid());
 }
+
+function updateCanvas() {
+context.clearRect(0, 0, asteroidCanvas.width, asteroidCanvas.height);
+let asteroid;
+for (let a = 0; a < asteroids.length; a++) {
+    asteroid = asteroids[a];
+    if (asteroid.image.loaded) {
+
+    context.drawImage(asteroid.image, 0, 0, asteroid.image.aswidth, asteroid.image.asheight, asteroid.acx, asteroid.acy, 20, 20);
+    asteroid.acx += 3.5;
+    asteroid.acy += 3.5;
+    }
+}
+}
+
+  
+
+
+
+// function throwAsteroid1() {
+//     let asteroidCanvas = document.getElementById('asteroidCanvas');
+//     let context = asteroidCanvas.getContext('2d');
+//     // context.globalCompositeOperation = 'desination over';
+//     let acx = Math.floor(Math.random() * 200); 
+//     let acy = Math.floor(Math.random() * 10); 
+//     // setInterval(moveAsteroid, 10)  
+//     setInterval( 
+//         asteroid.onload = function() {
+//             context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 20, 20); 
+//             acx += .0825;
+//             acy += .0825;
+//             asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
+//        }, 60)  
+//        setInterval(asteroidPath, 50)
+// }
+
+
+// function asteroidPath() {
+//     // let computedStyle = getComputedStyle(canvasDisplay)
+//     let asteroidCanvas = document.getElementById('asteroidCanvas');
+//     let ctx = asteroidCanvas.getContext("2d");
+//     ctx.clearRect(acx,acy, canvasDisplay.width, canvasDisplay.height);
+
+// }
+
+var fuel = new Image();
+var fcx = 0;
+var fcy = 0;
+var fsx = 0;
+var fsy = 0;
+var fswidth = 800;
+var fsheight = 400;
+fuel.src = 'http://pngimg.com/uploads/jerrycan/jerrycan_PNG43713.png'
+
+const objectTwo = {
+    fcx,
+    fcy,
+    fsx,
+    fsy,
+    fswidth,
+    fsheight,
+}
+
+function drawFuel1() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 400;
+    var fcy = 10;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+
+function drawFuel2() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 30;  
+    var fcy = 30;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+function drawFuel3() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 325;
+    var fcy = 70;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+function drawFuel4() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 70;
+    var fcy = 100;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+function drawFuel5() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 275;
+    var fcy = 130;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+function drawFuel6() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 420;
+    var fcy = 150;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+function drawFuel7() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 15;
+    var fcy = 170;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+function drawFuel8() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+
+    var fcx = 150;
+    var fcy = 190;
+
+    setTimeout( () => {
+        fuel.onload = function() {
+           context.drawImage(fuel, fsx, fsy, fswidth, asheight, fcx, fcy, 20, 20); 
+       }
+       fuel.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Icons8_flat_charge_battery.svg/600px-Icons8_flat_charge_battery.svg.png';
+       }, 0)  
+}
+
 
 function movePlayer() {
 
@@ -272,25 +432,54 @@ function movePlayer() {
     });
 }
 
+function boardMovement() {
+    var canvasDisplay = document.getElementById('board');
+    var context = canvasDisplay.getContext('2d');
+   
+    sprite.onload = function() {
+        context.drawImage(sprite, sx, sy, swidth, sheight, cx, cy, 50, 50);
+    }
+    sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
+    // sprite.style.zIndex = '1';
+    console.log(cx);
+    console.log(cy);
+    fuelFill();
+}
 
 
-    // allows you to hold buttons down for movement
+function fuelFill() {
+    var fuelCanvas = document.getElementById('fuelCanvas');
+    var context = fuelCanvas.getContext('2d');
+    if ((cx === 782) && (cy === 10)) {
+        fuelBar.value += 10
+        context.clearRect(400,10, 410, 20);
+    } else if (( cx === 62) && ( cy === 46)) {
+        fuelBar.value += 10 
+        context.clearRect(30,30, 40, 40);
+    } else if (( cx === 620 ) && ( cy === 136 )) {
+        fuelBar.value += 10
+        context.clearRect(325,70, 335, 80);
+    } else if (( cx === 152) && ( cy === 190)) {
+        fuelBar.value += 10
+        context.clearRect(70,100, 80, 110);
+    } else if (( cx === 530 ) && ( cy === 262 )) {
+        fuelBar.value += 10
+        context.clearRect(275,130, 275, 130);
+    } else if (( cx === 818 ) && ( cy === 298 )) {
+        fuelBar.value += 10
+        context.clearRect(420,150, 430, 160);
+    } else if (( cx === 26 ) && ( cy === 334 )) {
+        fuelBar.value += 10
+        context.clearRect(15,170, 25, 180);
+    } else if (( cx === 278 ) && ( cy === 370 )) {
+        fuelBar.value += 10
+        context.clearRect(150,190, 160, 200);
+        console.log(fuelBar.value)
+    }
+}
 
-    // const keys = [];
-    // window.addEventListener('keydown', function(e) {
-    //     keys[e.key] = true;
-    //     console.log(keys);
-    // });
-    // window.addEventListener('keyup', function(e) {
-    //     delete keys[e.key];
-    // });
-
-// function detectHit() {
-//     // hit coming in from the right
-//     if (sprite < asteroid.x + asteroid.width 
-//         && hero.x + hero.width > ogre.x 
-//         && hero.y < ogre.y + ogre.height
-//         && hero.y + hero.height > ogre.y) {
-//             ogre.alive = false
-//         }
-//     }
+function gameWin() {
+    if (fuelBar.value === 100) {
+        delete startGame
+    }
+}

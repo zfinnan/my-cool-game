@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <link rel="icon" href="https://www.clipartkey.com/mpngs/m/14-146283_8-bit-spaceship-png-8-bit-spaceship-sprites.png">
-    <title>Fuel Cell Fury</title>
+    <title>Game Test</title>
 </head>
 <body>
     <h1>Fuel Cell Fury</h1>
@@ -17,8 +17,11 @@
         <button type="button" id="instructionsBtn" onclick="openInstructions()" >
             <img id='instructions' src="https://i.imgur.com/T1QE2vD.png">
         </button>
-        <canvas id="board">
-        </canvas>
+        <div class="container"></div>
+            <canvas id="asteroidCanvas"></canvas>
+            <canvas id="board"></canvas>
+            <canvas id="fuelCanvas"></canvas>
+            <!-- <canvas id="board2"></canvas> -->
         <div class="hud">
             <label for="Fuel">Fuel:</label>
             <progress class="progress" id="fuel" max="100" value="20" name="Fuel" ></progress>
