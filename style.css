@@ -42,7 +42,7 @@ p {
     justify-content: center;
     z-index: 0;
     margin-left: 15%;
-  }
+}
 #asteroidCanvas {
     width: 70%;
     height: 80;
@@ -51,7 +51,6 @@ p {
 }
 
 #fuelCanvas {
-    /* border: 5px solid purple; */
     width: 70%;
     height: 80;
     margin-left: 15%;
