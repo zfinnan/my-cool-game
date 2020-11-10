@@ -448,7 +448,7 @@ function fuelFill() {
 }
 
 function asteroidHit(asteroid) {
-        if ((cx - 169 > asteroid.acx - 20 && cx - 169 < asteroid.acx + 20) && (cy - 28 > asteroid.acy - 20 && cy - 28 < asteroid.acy + 20)) {
+        if ((cx - 169 > asteroid.acx - 15 && cx - 169 < asteroid.acx + 15) && (cy - 28 > asteroid.acy - 15 && cy - 28 < asteroid.acy + 15)) {
             healthBar.value -= 5;
     }  
 }
