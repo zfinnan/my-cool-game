@@ -69,7 +69,7 @@ function openInstructions() {
     setTimeout(removeStartButton, 10000);  
     // startButton.onclick = setTimeout(myTimer, 0);  
     setTimeout(playerRender, 10000);
-    
+    setTimeout(startGame, 10000);
 }
 
 function startGame() {  
@@ -101,7 +101,7 @@ function startGame() {
     setTimeout(drawFuel7, 30000);
     setTimeout(drawFuel8, 35000);
     setInterval(spawnAsteroid, 2000);
-    setInterval(updateCanvas, 50);
+    setInterval(updateCanvas, 25);
     spawnAsteroid();
 }
 
@@ -179,7 +179,6 @@ function playerRender() {
     // setTimeout(movePlayer, 0);
 
     movePlayer();
-    
 }
 
 Asteroid = function() {
@@ -200,8 +199,12 @@ var context = asteroidCanvas.getContext('2d');
 let asteroids = [];
 
 function spawnAsteroid() {
-asteroids.push(new Asteroid());
+    asteroids.push(new Asteroid());
+    console.log('a x:' + asteroids[0].acx)
+    console.log('a y:' + asteroids[0].acy)
 }
+
+
 
 function updateCanvas() {
 context.clearRect(0, 0, asteroidCanvas.width, asteroidCanvas.height);
@@ -211,13 +214,20 @@ for (let a = 0; a < asteroids.length; a++) {
     if (asteroid.image.loaded) {
 
     context.drawImage(asteroid.image, 0, 0, asteroid.image.aswidth, asteroid.image.asheight, asteroid.acx, asteroid.acy, 20, 20);
-    asteroid.acx += 3.5;
-    asteroid.acy += 3.5;
+    asteroid.acx += 3;
+    asteroid.acy += 3;
     }
+    asteroidHit(asteroid);
 }
+if (fuelBar.value === 100){
+    return updateCanvas();
+}
+// if (healthBar.value === 100){
+//     return updateCanvas();
+// }
+
 }
 
-  
 
 
 
@@ -441,9 +451,9 @@ function boardMovement() {
     }
     sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
     // sprite.style.zIndex = '1';
-    console.log(cx);
-    console.log(cy);
+    
     fuelFill();
+    gameWinLose();
 }
 
 
@@ -478,8 +488,56 @@ function fuelFill() {
     }
 }
 
-function gameWin() {
+function asteroidHit(asteroid) {
+        if ((cx - 169 > asteroid.acx - 30 && cx - 169 < asteroid.acx + 20) && (cy - 28 > asteroid.acy - 5 && cy - 28 < asteroid.acy + 5)) {
+            healthBar.value -= 5;
+    }  
+}
+
+
+function gameWinLose() {
     if (fuelBar.value === 100) {
-        delete startGame
+        canvasDisplay.style.background = 'url(https://i.imgur.com/AurYN11.jpg)'
+        canvasDisplay.style.backgroundRepeat = 'no-repeat';
+        canvasDisplay.style.backgroundSize = '100% 100%';
+        var context = canvasDisplay.getContext('2d');
+
+        context.font = '45px Orbitron';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillStyle = '#1da9cc';  
+        context.fillText('You made it home! Play again?', 450, 160); 
+        
+        context.font = '35px Orbitron';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillStyle = 'black';  
+        context.fillText('Click anywhere on screen', 450, 300); 
+
+        fuelCanvas.addEventListener('click', () => {
+            location.reload();
+        });
+    }
+    if (healthBar.value === 0) {
+        canvasDisplay.style.background = 'url(https://i.imgur.com/SfoYMtN.gif)'
+        canvasDisplay.style.backgroundRepeat = 'no-repeat';
+        canvasDisplay.style.backgroundSize = '100% 100%';
+        var context = canvasDisplay.getContext('2d');
+
+        context.font = '45px Orbitron';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillStyle = '#1da9cc';  
+        context.fillText('Mission failed. Try again?', 450, 160); 
+
+        context.font = '35px Orbitron';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillStyle = 'white';  
+        context.fillText('Click anywhere on screen', 450, 300); 
+
+        fuelCanvas.addEventListener('click', () => {
+            location.reload();
+        });
     }
 }
