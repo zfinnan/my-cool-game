@@ -67,7 +67,6 @@ function openInstructions() {
     ctx.fillText('Use the 🆆 🅰 🆂 🅳 keys to collect all the fuel cells and escape!', 450, 300);
 
     setTimeout(removeStartButton, 10000);  
-    // startButton.onclick = setTimeout(myTimer, 0);  
     setTimeout(playerRender, 10000);
     setTimeout(startGame, 10000);
 }
@@ -88,10 +87,7 @@ function startGame() {
     startButton.remove();
     instructionsButton.remove();
 
-    playerRender();
-    // throwAsteroid1();
-    // setInterval(throwAsteroid1, 2000); 
-    
+    playerRender(); 
     setTimeout(drawFuel1, 0);
     setTimeout(drawFuel2, 5000);
     setTimeout(drawFuel3, 10000);
@@ -134,7 +130,6 @@ var sy = 0;
 var swidth = 50;
 var sheight = 50;
 sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
-// sprite.style.zIndex = '1';
 
 const player = {
     sprite,
@@ -174,10 +169,6 @@ function playerRender() {
         context.drawImage(sprite, sx, sy, swidth, sheight, cx, cy, 50, 50);
     }
     sprite.src = 'https://opengameart.org/sites/default/files/shipsprite1.png';
-    // sprite.style.zIndex = '1';
-
-    // setTimeout(movePlayer, 0);
-
     movePlayer();
 }
 
@@ -222,40 +213,8 @@ for (let a = 0; a < asteroids.length; a++) {
 if (fuelBar.value === 100){
     return updateCanvas();
 }
-// if (healthBar.value === 100){
-//     return updateCanvas();
-// }
-
 }
 
-
-
-
-// function throwAsteroid1() {
-//     let asteroidCanvas = document.getElementById('asteroidCanvas');
-//     let context = asteroidCanvas.getContext('2d');
-//     // context.globalCompositeOperation = 'desination over';
-//     let acx = Math.floor(Math.random() * 200); 
-//     let acy = Math.floor(Math.random() * 10); 
-//     // setInterval(moveAsteroid, 10)  
-//     setInterval( 
-//         asteroid.onload = function() {
-//             context.drawImage(asteroid, asx, asy, aswidth, asheight, acx, acy, 20, 20); 
-//             acx += .0825;
-//             acy += .0825;
-//             asteroid.src = 'https://i.imgur.com/WfQKE6T.png';
-//        }, 60)  
-//        setInterval(asteroidPath, 50)
-// }
-
-
-// function asteroidPath() {
-//     // let computedStyle = getComputedStyle(canvasDisplay)
-//     let asteroidCanvas = document.getElementById('asteroidCanvas');
-//     let ctx = asteroidCanvas.getContext("2d");
-//     ctx.clearRect(acx,acy, canvasDisplay.width, canvasDisplay.height);
-
-// }
 
 var fuel = new Image();
 var fcx = 0;
