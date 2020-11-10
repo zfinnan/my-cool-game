@@ -66,9 +66,12 @@ function openInstructions() {
     ctx.fillStyle = 'black';  
     ctx.fillText('Use the 🆆 🅰 🆂 🅳 keys to collect all the fuel cells and escape!', 450, 300);
 
-    setTimeout(removeStartButton, 10000);  
-    setTimeout(playerRender, 10000);
-    setTimeout(startGame, 10000);
+    // setTimeout(removeStartButton, 10000);  
+    // setTimeout(playerRender, 10000);
+    // setTimeout(startGame, 10000);
+    fuelCanvas.addEventListener('click', () => {
+        location.reload();
+    });
 }
 
 function startGame() {  
